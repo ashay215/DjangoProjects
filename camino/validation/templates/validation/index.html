@@ -1,0 +1,32 @@
+<head>
+		<title>Validation</title>
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+  <h1>Hello and welcome to Ashay Vipinkumar's Classroom Validation Service!</h1>
+  <br>
+  Please enter your information below.
+  <form name="getinfo" method="POST"  action="{% url 'validation:verify' %}">
+  {% csrf_token %}
+    <table id = "registration">
+      <tr>
+        <td> Name</td>
+        <td> <input type="text" name="Name"> </td>
+      </tr>
+      <tr>
+          <td> Phone Number</td>
+          <td><input type="text" name="PhoneNumber"></td>
+      </tr>
+      <tr>
+          <td> Class Name</td>
+        <td><input type="text" name="ClassName"></td>
+      </tr>
+      <tr>
+        <td><input type="submit" value="Register"> </td>
+      </tr>
+    </table>
+  </form>
+
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+</body>

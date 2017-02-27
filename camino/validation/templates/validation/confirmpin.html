@@ -1,0 +1,21 @@
+<head>
+		<title>Confirm PIN</title>
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+  <h1> Almost done! We've texted your phone with a verification code. Please type it below to finish the registration process. </h1>
+  <form name="confirmpin" method="POST"  action="{% url 'validation:confirmpin' %}">
+  {% csrf_token %}
+    <table id = "confirmpin">
+      <tr>
+        <td> Please enter the sent PIN number.</td>
+        <td> <input type="text" name="PINinput"> </td>
+      </tr>
+      <tr>
+        <td><input type="submit" value="Submit"> </td>
+      </tr>
+    </table>
+  </form>
+
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</body>
