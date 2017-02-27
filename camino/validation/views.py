@@ -6,6 +6,8 @@ from .models import User
 from django.views import generic
 from random import randint
 # from django.urls import reverse
+from twilio.rest import TwilioRestClient
+
 
 def index(request):
     return render(request, 'validation/index.html')
@@ -25,13 +27,12 @@ def confirmpin(request):
         print "PIN MATCH!"
         tempuser.temp = False
         tempuser.save()#marking in database as registered
-    return render(request, 'validation/loginpage.html')
+        return render(request, 'validation/loginpage.html')
 
-        #     # return render(request, 'validation/loginpage.html')
-        # else:
-        #     return render(request, 'validation/confirmpin.html', {
-        #         'error_message' : "PIN does not match!",
-        #     })
+    else:
+        return render(request, 'validation/confirmpin.html', {
+            'error_message' : "PIN does not match!",
+        })
         # try:
         #     selected_choice = question.choice_set.get(pk=request.POST['choice'])
         # except (KeyError, Choice.DoesNotExist):
@@ -69,22 +70,18 @@ def verify(request):
              temp =True,
         )
         print "Created new User entry!"
+        text = "Your verification PIN:"
+        text+= `randompin`
+
+        ACCOUNT_SID = "AC689b9870c4d29eba070ffccd0b133bf6"
+        AUTH_TOKEN = "0688615be0d3415f952e6cb8ea0148f8"
+        client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+        client.messages.create(
+            to=pnumber,
+            from_="2139081961",
+            body=text,
+        )
+
+        print "TEXT SENT"
 
     return render(request, 'validation/confirmpin.html')
-    # return HttpResponseRedirect('/validation/confirmpin.html')
-
-
-
-
-# -------------------
-    # question = get_object_or_404(Question, pk=question_id)
-    # try:
-    #     selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    # except (KeyError, Choice.DoesNotExist):
-    #     # Redisplay the question voting form.
-    #
-    # else:
-    #
-    #     selected_choice.votes += 1
-    #     selected_choice.save()
-    #     return HttpResponseRedirect('validation:retrieval')
