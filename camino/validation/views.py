@@ -57,6 +57,10 @@ def retrieval(request):
         return render(request, 'validation/retrieval.html', {
             'error_message' : "Phone does not exist in database!",
         })
+    except User.MultipleObjectsReturned:
+        return render(request, 'validation/retrieval.html', {
+            'error_message' : "Multiple users found with this phone number!",
+        })
 
 def confirmpin(request):
     PINinput = int( request.POST.get('PINinput') )
@@ -105,13 +109,23 @@ def confirmpin(request):
         })
 
 def verify(request):
+
     if request.method == 'POST':
         uname = request.POST.get('Name')
-        pnumber = request.POST.get('PhoneNumber')
+        pnumber = int(request.POST.get('PhoneNumber'))
         cname = request.POST.get('ClassName')
         # print uname
         # print pnumber
         # print cname
+        try:
+            test = User.objects.get(phone=pnumber)
+            return render(request, 'validation/index.html', {
+                'error_message' : "Another user already has this phone number!",
+            })
+
+        except User.DoesNotExist:
+            print "Phone Number valid!"
+
         randompin = ''
         for i in range(4):
             randompin += `randint(0,9)`
