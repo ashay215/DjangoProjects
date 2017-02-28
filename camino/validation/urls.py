@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^confirmpin/$', views.verify, name='verify'),
     url(r'^loginpage/$', views.confirmpin, name='confirmpin'),
-    #url(r'^loginpage/$', views.loginpage, name='loginpage'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^retrieval/$', views.retrieval, name='retrieval'),
 ]

@@ -1,7 +1,20 @@
 <head>
 		<title>Login Page</title>
-		<link rel="stylesheet" type="text/css" href="main.css"/>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static "validation/main.css" %} "/>
 </head>
 <body>
   <h1> You are logged in! </h1>
+	<div id = "center">
+	<h2><b>Account info:</b></h2>
+	<br>
+	{% if username %}<p><strong>Name: {{ username }}</strong></p>{% endif %}
+	{% if phone %}<p><strong>Phone Number: {{ phone }}</strong></p>{% endif %}
+	{% if classname %}<p><strong>Class Name: {{ classname }}</strong></p>{% endif %}
+
+	<form name="loginredirect" method="POST"  action="{% url 'validation:login' %}">
+	   {% csrf_token %}
+		 <input type="submit" value="Logout"> </td>
+	 </form>
+	</div>
 </body>

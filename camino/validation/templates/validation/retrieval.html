@@ -1,0 +1,25 @@
+<head>
+		<title>Retrieval</title>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static "validation/main.css" %} "/>
+</head>
+<body>
+  <h1>Hello and welcome to Ashay Vipinkumar's Classroom Validation Service Login!</h1>
+  <br>
+  Please enter your number below.
+	<div id = "center">
+    <form name="retrieval" method="POST"  action="{% url 'validation:retrieval' %}">
+    {% csrf_token %}
+
+	    <table id = "retrieval">
+	      <tr>
+	          <td> Phone Number</td>
+	          <td><input type="text" name="PhoneNumber"></td>
+	      </tr>
+	    </table>
+			<input type="submit" value="Register"> </td>
+	  </form>
+
+	  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	</div>
+</body>
