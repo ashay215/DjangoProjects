@@ -1,3 +1,1 @@
-# DjangoProjects
-
-Please see camino/README.pdf for details, screenshots, and an explanation of the project.
+This repository contains Web Development projects of mine in Django+Python and SQLite.
